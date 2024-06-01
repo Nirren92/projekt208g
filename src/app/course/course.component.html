@@ -1,0 +1,39 @@
+<div class="container">
+
+
+
+    <h1>Kurser för datateknik</h1>
+
+    <form [formGroup]="inputform" style="margin-top: 50px; width: 90%;">                        
+        <label for="sokord"><span>Sökord</span></label>
+        <input (input)="filter()" type="text" formControlName="sokord" id="sokord">
+
+ 
+        <select (change)="filter()" formControlName="selectedCourse" id="selectedCourse">
+            <option id="selectedCourse" [value]="">Ämne</option>
+            <option id="selectedCourse" *ngFor="let subject of subjectList" [value]="subject">{{ subject }}</option>
+        </select>
+    </form>
+    
+    <div>
+        <table >
+            
+            <tr>
+                <th (click)="sort_code()" >Kurskod</th>
+                <th (click)="sort_coursename()" >Namn</th>
+                <th (click)="sort_progression()" >Progression</th>
+            </tr>
+            <tbody id="kurslista">
+                <tr *ngFor="let course of courselist">
+                    <td>{{ course.courseCode }}</td>
+                    <td> <a href="{{ course.syllabus }}"> {{ course.courseName }}</a></td>
+                    <td>{{ course.progression }}</td>
+                    <td><button (click)="courseToggle(course)">{{ courseChosen(course) ? 'Ta bort' : 'Lägg till' }}</button></td>
+                </tr>
+            </tbody>
+
+
+        </table>
+    </div>
+
+</div>

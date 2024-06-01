@@ -1,0 +1,25 @@
+<div class="container">
+
+
+    <table >
+        
+        <tr>
+            <th (click)="sort_code()" >Kurskod</th>
+            <th (click)="sort_coursename()" >Namn</th>
+            <th (click)="sort_progression()" >Progression</th>
+        </tr>
+        <tbody id="kurslista">
+            <tr *ngFor="let course of chosenCourses">
+                <td>{{ course.courseCode }}</td>
+                <td> <a href="{{ course.syllabus }}"> {{ course.courseName }}</a></td>
+                <td>{{ course.progression }}</td>
+                <td><button (click)="courseToggle(course)">{{ courseChosen(course) ? 'Ta bort' : 'Lägg till' }}</button></td>
+            </tr>
+        </tbody>
+
+
+    </table>
+
+    <p>Total Antal Poäng: {{ sumScore }} Hp</p>
+    <p>Total Antal Kurser: {{ sumCourses }}</p>
+</div>

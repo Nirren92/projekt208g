@@ -1,1 +1,10 @@
-<p>mainmenu works!</p>
+<header>
+    <nav>
+        <button class="menubutton" mat-button [matMenuTriggerFor]="menu">Menu</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/home" >Home</button>
+          <button mat-menu-item routerLink="/course" >Kurser</button>
+          <button mat-menu-item routerLink="/ram" >Ramschema</button>
+        </mat-menu>
+    </nav>
+  </header>
