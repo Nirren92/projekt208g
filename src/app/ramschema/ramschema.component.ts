@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component,ChangeDetectorRef } from '@angular/core';
-import { CoursesService } from '../service/course.service';
+import { RamschemaService } from '../service/ramschema.service';
 import { Course } from '../model/course';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,12 +16,9 @@ export class RamschemaComponent {
   sumScore:number=0;
   sumCourses:number=0;
 
-  constructor() {
-    const storedCourses = localStorage.getItem("Courses");
-    if (storedCourses) {
-      this.chosenCourses = JSON.parse(storedCourses);
-      this.counter();
-    }   
+  constructor(private ramschemaService:RamschemaService) {
+    this.chosenCourses = this.ramschemaService.getCourses();
+    this.counter();
   }
 
     courseChosen(course:Course):boolean 
@@ -46,7 +43,7 @@ export class RamschemaComponent {
       {
         this.chosenCourses.splice(index, 1);
       }
-      localStorage.setItem("Courses", JSON.stringify(this.chosenCourses));
+      this.ramschemaService.saveCourses(this.chosenCourses);
       this.counter();
     }
   

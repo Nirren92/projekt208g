@@ -3,7 +3,7 @@ import { Component,ChangeDetectorRef } from '@angular/core';
 import { CoursesService } from '../service/course.service';
 import { Course } from '../model/course';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-
+import { RamschemaService } from '../service/ramschema.service';
 
 
 @Component({
@@ -20,12 +20,13 @@ export class CourseComponent  {
   inputform: FormGroup;
   chosenCourses:Course[]=[];
   subjectList:string[]=[];
+  sumCourses:number=0;
+  sumFilterCourses:number=0;
 
-  constructor(private kurserService: CoursesService,private formBuilder: FormBuilder,) {
-    const storedCourses = localStorage.getItem("Courses");
-    if (storedCourses) {
-      this.chosenCourses = JSON.parse(storedCourses);
-    }   
+  constructor(private ramschemaService:RamschemaService,private kurserService: CoursesService,private formBuilder: FormBuilder,) {
+   
+    this.chosenCourses = this.ramschemaService.getCourses();
+
     this.inputform = this.formBuilder.group({
       sokord: [''],
       selectedCourse: ['']
@@ -42,9 +43,16 @@ export class CourseComponent  {
       this.subjectList = this.courselist_orginal
       .map(course => course.subject)
       .filter((value, index, self) => self.indexOf(value) === index);
-
+      this.counter() 
       });
+      
     }
+
+    counter() {
+      this.sumCourses = this.courselist_orginal.length;
+      this.sumFilterCourses = this.courselist.length;
+    }
+
 
     courseChosen(course:Course):boolean 
     {
@@ -68,7 +76,7 @@ export class CourseComponent  {
       {
         this.chosenCourses.splice(index, 1);
       }
-      localStorage.setItem("Courses", JSON.stringify(this.chosenCourses));
+      this.ramschemaService.saveCourses(this.chosenCourses);
   
     }
   
@@ -97,6 +105,7 @@ export class CourseComponent  {
         (selectedCourse === '' || item.subject.toLowerCase() === selectedCourse.toLowerCase()) &&
         (sokord === '' || item.courseCode.toLowerCase().includes(sokord.toLowerCase()) || item.courseName.toLowerCase().includes(sokord.toLowerCase()))
       );
+      this.counter()
     }
 
 
