@@ -1,44 +1,48 @@
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 900px;
+  margin:auto;
+  margin-top: 140px;
   padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #d5e3f1;
+  border-radius: 40px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 
   h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: clamp(18px, 5vw, 30px);
+    text-align: center;
+    font-weight: bold;
   }
 
   form {
-    margin-top: 20px;
     width: 100%;
 
     label {
       display: block;
       margin-bottom: 10px;
-
+      text-align: center;
+      
       span {
         display: block;
         font-weight: bold;
       }
+
     }
 
-    input[type="text"],
+    input,
     select {
       width: 100%;
-      padding: 8px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
+      padding: 6px;
+      border: 1px solid #727272;
+      border-radius: 10px;
       margin-bottom: 10px;
     }
 
     select {
-      appearance: none;
-      background-color: #fff;
       cursor: pointer;
-    }
-
-    datalist {
-      display: none;
     }
   }
 
@@ -46,38 +50,62 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-
+    height: 500px;
+    table-layout: fixed
+    
     th, td {
-      padding: 10px;
-      text-align: left;
+      padding: 6px;
+      font-size: 14px;
       border-bottom: 1px solid #ddd;
     }
 
     th {
       cursor: pointer;
     }
-
-    tbody tr:hover {
-      background-color: #f5f5f5;
-    }
-
     a {
       text-decoration: none;
       color: #007bff;
     }
+
+    td,th:first-child {
+      width: 80px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+    td:nth-child(2) {
+      text-align: left;
+    }
+    tbody tr:hover {
+      background-color: #e2f4ff;
+      cursor: pointer;
+    }
   }
 
   button {
-    padding: 8px 12px;
-    background-color: #007bff;
+    padding: 6px 10px;
+    font-size: 14px;
+    background-color: #1174dd;
     color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.5s ease;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #0a57a8;
     }
   }
 }
+
+@media only screen and (max-width: 600px) {
+  .container table {
+    td:not(:nth-child(2)):not(:nth-child(4)) {
+      display: none;
+    }
+    th:not(:nth-child(2)):not(:nth-child(4)) {
+      display: none;
+    }
+  }
+}
+
