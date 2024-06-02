@@ -51,7 +51,7 @@ export class CourseComponent  {
       this.subjectList = this.courselist_orginal
       .map(course => course.subject)
       .filter((value, index, self) => self.indexOf(value) === index);
-      this.counter() 
+      this.counter(); 
       
       this.filter()});
       
